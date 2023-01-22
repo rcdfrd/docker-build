@@ -27,12 +27,12 @@ jobs:
       - 
         name: Clone source code
         run: |
-          git clone --no-checkout https://github.com/lobaro/restic-backup-docker .
+          git clone https://github.com/lobaro/restic-backup-docker restic
       -
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: restic
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
