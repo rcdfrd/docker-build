@@ -44,5 +44,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags:  |
-            rcdfrd/restic-backup-docker:latest
             ${{ steps.meta.outputs.tags }}  
