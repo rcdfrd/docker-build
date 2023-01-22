@@ -32,7 +32,7 @@ jobs:
           images: |
             rcdfrd/restic-backup-docker
           tags: |
-            type=raw,vaule={{date 'YYYYMMDD-hhmmss' tz='Asia/Shanghai'}}
+            type=raw,value={{date 'YYYYMMDD-hhmmss' tz='Asia/Shanghai'}}
             type=raw,value=latest
       - 
         name: Clone source code
