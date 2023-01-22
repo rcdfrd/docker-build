@@ -31,7 +31,6 @@ jobs:
         with:
           images: rcdfrd/restic-backup-docker
           tags: |
-            type=raw,value=latest
             type=schedule,pattern={{date 'YYYYMMDD-hhmmss' tz='Asia/Shanghai'}}
       - 
         name: Clone source code
@@ -44,5 +43,6 @@ jobs:
           context: restic
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags:  |
+            rcdfrd/restic-backup-docker:latest
+            ${{ steps.meta.outputs.tags }}  
