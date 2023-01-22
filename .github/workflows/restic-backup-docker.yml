@@ -29,9 +29,10 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: rcdfrd/restic-backup-docker
+          images: |
+            rcdfrd/restic-backup-docker
           tags: |
-            type=schedule,pattern={{date 'YYYYMMDD-hhmmss' tz='Asia/Shanghai'}}
+            type=raw,pattern={{date 'YYYYMMDD-hhmmss' tz='Asia/Shanghai'}}
       - 
         name: Clone source code
         run: |
@@ -43,5 +44,4 @@ jobs:
           context: restic
           platforms: linux/amd64,linux/arm64
           push: true
-          tags:  |
-            ${{ steps.meta.outputs.tags }}  
+          tags: ${{ steps.meta.outputs.tags }}
