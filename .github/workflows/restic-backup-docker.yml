@@ -44,6 +44,5 @@ jobs:
           context: restic
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: |
-            rcdfrd/restic-backup-docker:latest
-            rcdfrd/restic-backup-docker:${PACKAGE_LABEL}_${TIMESTAMP}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
