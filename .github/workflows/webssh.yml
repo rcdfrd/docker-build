@@ -40,7 +40,6 @@ jobs:
         name: Clone source code
         run: |
           git clone https://github.com/huashengdun/webssh.git webssh
-          exit 0
       -
         name: Build and push
         uses: docker/build-push-action@v3
