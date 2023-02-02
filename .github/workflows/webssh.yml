@@ -18,8 +18,7 @@ jobs:
       -
         name: Check
         run: |
-          sudo apt install -y jq
-          if [ $(( $( date '+%s' ) - $( date -d $(curl -sk https://api.github.com/repos/openfaas/faas | jq --raw-output '.pushed_at') '+%s' ) )) -lt 172800 ]; then vars.BUILD=true; else vars.BUILD=false;fi
+          if [ $(( $( date '+%s' ) - $( date -d $(curl -sk https://api.github.com/repos/openfaas/faas | jq --raw-output '.pushed_at') '+%s' ) )) -lt 172800 ]; then env.BUILD=true; else env.BUILD=false;fi
 
   build:
     runs-on: ubuntu-latest
@@ -55,7 +54,12 @@ jobs:
         run: |
           git clone https://github.com/huashengdun/webssh.git webssh
       -
+        name: Check
+        run: |
+          if [ $(( $( date '+%s' ) - $( date -d $(curl -sk https://api.github.com/repos/openfaas/faas | jq --raw-output '.pushed_at') '+%s' ) )) -lt 172800 ]; then env.BUILD=true; else env.BUILD=false;fi
+      -
         name: Build and push
+        if: ${{ env.BUILD }}
         uses: docker/build-push-action@v3
         with:
           context: webssh
