@@ -53,7 +53,7 @@ jobs:
           echo ${{ env.build }}
       -
         name: Build and push
-        if: ${ build }
+        if: env.build == 1
         uses: docker/build-push-action@v3
         with:
           context: webssh
