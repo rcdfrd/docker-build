@@ -45,7 +45,7 @@ jobs:
       -
         name: Check
         run: |
-          if [ $(( $( date '+%s' ) - $( date -d $(curl -sk https://api.github.com/repos/openfaas/faas | jq --raw-output '.pushed_at') '+%s' ) )) -lt 172800 ]; then env.BUILD=true; else env.BUILD=false;fi
+          if [ $(( $( date '+%s' ) - $( date -d $(curl -sk https://api.github.com/repos/openfaas/faas | jq --raw-output '.pushed_at') '+%s' ) )) -lt 172800 ]; then BUILD=true; fi
       -
         name: Build and push
         if: ${{ env.BUILD }}
