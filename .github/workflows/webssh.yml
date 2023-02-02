@@ -45,7 +45,7 @@ jobs:
       -
         name: Check
         run: |
-          if [ $(( $( date '+%s' ) - $( date -d $(curl -sk https://api.github.com/repos/openfaas/faas | jq --raw-output '.updated_at') '+%s' ) )) -lt 172800 ]; then build=true; fi
+          if [ $(( $( date '+%s' ) - $( date -d $(curl -k https://api.github.com/repos/openfaas/faas | jq --raw-output '.updated_at') '+%s' ) )) -lt 172800 ]; then build=true; fi
           echo $build
       -
         name: Build and push
