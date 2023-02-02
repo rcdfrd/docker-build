@@ -5,7 +5,7 @@ on:
     branches:
       - 'main'
   schedule:
-    - cron: '12 12 Monday * *'
+    - cron: '12 12 */3 * *'
 
 
 jobs:
