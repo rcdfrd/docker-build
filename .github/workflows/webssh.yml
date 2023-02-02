@@ -6,10 +6,24 @@ on:
       - 'main'
   schedule:
     - cron: '12 12 * * *'
-    
+
+
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Check
+        run: |
+          apt install -y jq
+          if [ $(( $( date '+%s' ) - $( date -d $(curl -sk https://api.github.com/repos/openfaas/faas | jq --raw-output '.pushed_at') '+%s' ) )) -lt 172800 ]; then vars.BUILD=true; else vars.BUILD=false;fi
+
   build:
     runs-on: ubuntu-latest
+    if: vars.BUILD
     steps:
       -
         name: Checkout
