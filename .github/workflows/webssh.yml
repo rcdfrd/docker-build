@@ -5,7 +5,7 @@ on:
     branches:
       - 'main'
   schedule:
-    - cron: '12 12 * * *'
+    - cron: '12 12 Monday * *'
 
 
 jobs:
@@ -38,13 +38,6 @@ jobs:
           tags: |
             type=raw,value={{date 'YYYYMMDD-hhmmss' tz='Asia/Shanghai'}}
             type=raw,value=latest
-      -
-        name: Check
-        run: |
-          export build=0
-          if [ $(( $( date '+%s' ) - $( date -d $(curl -k https://api.github.com/repos/openfaas/faas | jq --raw-output '.updated_at') '+%s' ) )) -lt 172800 ]; then build=1; fi
-          echo $build
-          echo ${{ env.build }}
       - 
         name: Clone source code
         run: |
@@ -52,7 +45,6 @@ jobs:
           echo ${{ env.build }}
       -
         name: Build and push
-        if: env.build == 1
         uses: docker/build-push-action@v3
         with:
           context: webssh
