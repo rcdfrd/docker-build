@@ -7,6 +7,8 @@ on:
   schedule:
     - cron: '12 12 * * *'
 
+env:
+  build: 0
 
 jobs:
 
@@ -41,7 +43,7 @@ jobs:
       -
         name: Check
         run: |
-          if [ $(( $( date '+%s' ) - $( date -d $(curl -k https://api.github.com/repos/openfaas/faas | jq --raw-output '.updated_at') '+%s' ) )) -lt 172800 ]; then build=1; else build=0; fi
+          if [ $(( $( date '+%s' ) - $( date -d $(curl -k https://api.github.com/repos/openfaas/faas | jq --raw-output '.updated_at') '+%s' ) )) -lt 172800 ]; then build=1; fi
           echo $build
           echo ${{ env.build }}
       - 
