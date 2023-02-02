@@ -47,9 +47,10 @@ jobs:
         run: |
           if [ $(( $( date '+%s' ) - $( date -d $(curl -k https://api.github.com/repos/openfaas/faas | jq --raw-output '.updated_at') '+%s' ) )) -lt 172800 ]; then build=true; fi
           echo $build
+          echo ${{ env.build }}
       -
         name: Build and push
-        if: env.build == true
+        if: ${{ env.build }}
         uses: docker/build-push-action@v3
         with:
           context: webssh
